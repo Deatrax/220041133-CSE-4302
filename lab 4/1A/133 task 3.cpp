@@ -44,18 +44,18 @@ class BankAccount {
             cout << "Account of Mr." << holder << " with account number " << acNum << " is destroyed with a balance of BDT " << bal << nl;
         }
 
-        void createAcc(int ac, string& holdr, string typ, double balnc) {
+        bool createAcc(int ac, string& holdr, string typ, double balnc) {
             if (typ == "current") {
                 ac_type = 1;
             } else if (typ == "savings") {
                 ac_type = 0;
             } else {
                 cout << " [error] Invalid account type, please create account again\n";
-                return;
+                return false;
             }
             if (balnc < minBal) {
                 cout << " [error] Initial deposit value is less than minimum\nPlease deposit minimum of 200/-\nAccount creation failed, please retry\n";
-                return;
+                return false;
             }
             bal = balnc;
             acNum = ac;
@@ -103,6 +103,13 @@ class BankAccount {
         double baln() const {
             return bal;
         }
+
+        void printTaxCollected() const {
+            cout << "Total tax collected: " << taxCol << nl;
+        }
+
+    //END OF PUBLIC
+
 };
 
 double BankAccount::taxCol = 0.0;
@@ -161,16 +168,16 @@ int main() {
         accounts[acNum] = new BankAccount(acNum, holder, ac_type, bal);
     }
 
-    cout << "Select operation\n\t[1] Create account\n\t[2] Deposit\n\t[3] Withdraw\n\t[4] Give interest\n\t[5] Display stat\n\t[6] Compare\n\t[7] Exit\n\n [op code] >> ";
+    cout << "\nSelect operation\n\t[1] Create account\n\t[2] Deposit\n\t[3] Withdraw\n\t[4] Give interest\n\t[5] Display stat\n\t[6] Compare\n\t[7] Show Total Tax Collected\n\t[8] Exit\n\n [op code] >> ";
     int n;
-    while ((cin >> n) && n != 7) {
+    while ((cin >> n) && n != 8) {
         int acNum;
         string holder;
         string ac_type;
         double bal;
-        BankAccount acc;
         int sel, sel2;
         double amount;
+         BankAccount* inst;
         switch (n) {
         case 1:
             cout << "Give account number >> ";
@@ -186,7 +193,11 @@ int main() {
             cin >> ac_type;
             cout << "Give the initial deposit amount >> ";
             cin >> bal;
-            accounts[acNum] = new BankAccount(acNum, holder, ac_type, bal);
+            inst=new BankAccount;
+            if(inst->createAcc(acNum, holder, ac_type, bal))
+            accounts[acNum] = inst;
+
+            //accounts[acNum] = new BankAccount(acNum, holder, ac_type, bal);
             break;
 
         case 2:
@@ -246,10 +257,16 @@ int main() {
             }
             break;
 
+
+        case 7:
+            accounts[acNum]->printTaxCollected();\
+            break;
+
         default:
             cout << "Invalid option, please choose again\n";
         }
-        cout << "\nSelect operation\n\t[1] Create account\n\t[2] Deposit\n\t[3] Withdraw\n\t[4] Give interest\n\t[5] Display stat\n\t[6] Compare\n\t[7] Exit\n\n [op code] >> ";
+        cout << "\nSelect operation\n\t[1] Create account\n\t[2] Deposit\n\t[3] Withdraw\n\t[4] Give interest\n\t[5] Display stat\n\t[6] Compare\n\t[7] Show Total Tax Collected\n\t[8] Exit\n\n [op code] >> ";
+
     }
 
     // Deleting dynamically allocated memory.
