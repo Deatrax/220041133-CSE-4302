@@ -23,7 +23,7 @@ class BankAccount{
     private:
         int acNum;
         string holder;
-        bool type;
+        bool ac_type;
         double bal;
         const double minBal=200;
         static double taxCol;
@@ -46,10 +46,10 @@ class BankAccount{
 
             if (typ=="current")
             {
-                type=1;
+                ac_type=1;
             }
             else if(typ=="savings"){
-                type=0;
+                ac_type=0;
             }
             else cout<<" [error] Invalid account type, please create account again\n";
             
@@ -63,10 +63,10 @@ class BankAccount{
             
             if (typ=="current")
             {
-                type=1;
+                ac_type=1;
             }
             else if(typ=="savings"){
-                type=0;
+                ac_type=0;
             }
             else{
                 
@@ -80,13 +80,13 @@ class BankAccount{
             bal=balnc;
             acNum=ac;
             holder=holdr;
-            
+            showInfo();
         }
 
-        void showInfo(){
+        void showInfo() const{
             cout<<"Account No\t\t="<<acNum<<nl;
             cout<<"Account Holder Name\t="<<holder<<nl;
-            cout<<"Account Type\t\t="<< type? cout<<"Current\n" : cout<<"Savings\n";
+            cout<<"Account Type\t\t="<< (ac_type ? "Current\n" : "Savings\n");
             cout<<"Account balance\t\t="<<bal<<nl;
         }
 
@@ -125,34 +125,56 @@ class BankAccount{
             cout<<"Interest paid\t\t="<<interestAmount<<nl<<"Current Balance\t\t="<<bal;
         }
 
-        double baln() {
+        double baln() const{
             return bal;
         }
 };
 
-void display_stat(){
+double BankAccount::taxCol = 0.0;
+
+void display_stat(const BankAccount& A){
+    A.showInfo();
+}
+
+BankAccount Larger(const BankAccount& A, const BankAccount& B) {
+    if (A.baln() > B.baln()) {
+        return A;
+    } else {
+        return B;
+    }
+}
+
+map<int, BankAccount*>::iterator checkAcc(map<int, BankAccount*>& mp, int sel){
+    auto it=mp.find(sel);
+    if(it==mp.end()){
+        cout<<"account doesnt exists";
+        return mp.end();
+    }
+    else return it;
 
 }
 
-// BankAccount Larger(const BankAccount A, const BankAccount B){
-//     if (A.baln>)
-//     {
-//         /* code */
-//     }
-    
-// }
+bool checkAccB(map<int, BankAccount*>& mp, int sel){
+    auto it=mp.find(sel);
+    if(it==mp.end()){
+        cout<<"account doesnt exists";
+        return false;
+    }
+    else return true;
+
+}
 
 int main(){
     cout<<"Initialize the constructor? [y/n] >>";
     char ch;
     cin>>ch;
-    map<int, BankAccount> accounts;
+    map<int, BankAccount*> accounts;
     BankAccount* account=NULL;
     if (ch=='y')
     {
         int acNum;
         string holder;
-        string type;
+        string ac_type;
         double bal;
         cout<<"Give account number >>";
         cin>>acNum;
@@ -160,80 +182,80 @@ int main(){
         fflush(stdin);
         getline(cin,holder);
         cout<<"Give the account type [current/savings] >>";
-        cin>>type;
+        cin>>ac_type;
         cout<<"Give the initial deposit amount >>";
         cin>>bal;
-        BankAccount acc(acNum,holder,type,bal);
-        accounts.emplace(acNum,acc);
-
+        accounts[acNum]=new BankAccount(acNum,holder,ac_type,bal);
     }
-    else account=new BankAccount;
 
-    cout<<"Select opertation\n\t[1]create account\n\t[2]deposit\n\t[3]withdraw\n\t[4]give interest\n\t[5]diaplay stat\n\t[6]compare \n\n [op code] >>";
+    cout<<"Select opertation\n\t[1]create account\n\t[2]deposit\n\t[3]withdraw\n\t[4]give interest\n\t[5]diaplay stat\n\t[6]compare\n\t[7]exit\n\n [op code] >>";
     int n;
-    while ((cin>>n) && n!=5)
+    while ((cin>>n) && n!=7)
     {   
         int acNum;
         string holder;
-        string type;
+        string ac_type;
         double bal;
         BankAccount acc;
         int sel;
         int sel2;
-        auto it=find(accounts.begin(),accounts.end(),1);
+        auto it=accounts.find(1);
         switch (n)
         {
         case 1:
             cout<<"Give account number >>";
             cin>>acNum;
-            it=find(accounts.begin(),accounts.end(),acNum);
-            if(it!=accounts.end()){
-                cout<<"account exists";
-                return;
+            if(!checkAccB(accounts,acNum)){
+                break;
             }
             cout<<"Give the account holder name >>";
             fflush(stdin);
             getline(cin,holder);
             cout<<"Give the account type [current/savings] >>";
-            cin>>type;
+            cin>>ac_type;
             cout<<"Give the initial deposit amount >>";
             cin>>bal;
-            acc.createAcc(acNum,holder,type,bal);
-            accounts.emplace(acNum,acc);
+            accounts[acNum]=new BankAccount(acNum,holder,ac_type,bal);
             break;
         
         case 2:
             cout<<"Give account number >>";
             cin>>sel;
+            if(checkAccB(accounts,sel))
             cout<<"Give the amount >>";
             cin>>n;
-            accounts[sel].deposit(n);
+            accounts[sel]->deposit(n);
             break;
 
         case 3:
             cout<<"Give account number >>";
             cin>>sel;
+            if(checkAccB(accounts,sel))
             cout<<"Give the amount >>";
             cin>>n;
-            accounts[sel].withdraw(n);
+            accounts[sel]->withdraw(n);
             break;
 
         case 4:
             cout<<"Give account number >>";
             cin>>sel;
+            if(checkAccB(accounts,sel))
             cout<<"Use default interest? [y/n] >>";
             cin>>ch;
-            if(ch=='y') accounts[sel].giveInterest();
+            if(ch=='y') accounts[sel]->giveInterest();
             else{
                 cout<<"Give interest amount >>";
                 double a;
                 cin>>a;
-                accounts[sel].giveInterest(a);
+                accounts[sel]->giveInterest(a);
             }
             break;
 
         case 5:
-            display_stat();
+            cout<<"Give account number >>";
+            cin>>sel;
+            if(checkAccB(accounts,sel))
+            display_stat(*(it->second));
 
         case 6:
             cout<<"Give 1st account number >>";
@@ -244,7 +266,8 @@ int main(){
         default:
             break;
         }
+        cout<<"[op code] >>";
     }
-    
-    
+    cout<<"Exiting....exited\n\n";
+    return 0;
 }
