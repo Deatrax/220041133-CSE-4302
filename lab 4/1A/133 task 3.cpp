@@ -138,7 +138,7 @@ map<int, BankAccount*>::iterator checkAcc(map<int, BankAccount*>& mp, int sel) {
 bool checkAccB(map<int, BankAccount*>& mp, int sel) {
     auto it = mp.find(sel);
     if (it == mp.end()) {
-        cout << "Account doesn't exist\n";
+        cout << "Account doesn't exist yet\n";
         return false;
     }
     else return true;
