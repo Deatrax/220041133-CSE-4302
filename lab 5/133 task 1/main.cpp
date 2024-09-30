@@ -82,7 +82,7 @@ void showAllAlphabetically(savingsAccount acc[],int n){
 
 int main(){
     savingsAccount acc[100];
-    for (int i = 0; i < 10; i++)
+    for (int i = 0; i < 5; i++)
     {   
         cout<<"For the no. :"<<i+1<<" account\n";
         EditInformationByKeyboard(acc[i]);
@@ -94,8 +94,8 @@ int main(){
     // {
     // }
 
-    ShowInterestAll(acc, 10);
-    showAllAlphabetically(acc,10);
+    ShowInterestAll(acc, 5);
+    showAllAlphabetically(acc,5);
     
 }
 
