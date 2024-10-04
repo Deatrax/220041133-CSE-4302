@@ -1,9 +1,8 @@
-#include "sadman.h"
+#include "alfi.h"
 #include <iostream>
-
 int main() {
-    std::cout<<"\n\ntest text\n\n";
-    // Your code goes here
+    
+    std::cout<<"\n\nYour code goes here\n\n";
     
     return 0;
 }
