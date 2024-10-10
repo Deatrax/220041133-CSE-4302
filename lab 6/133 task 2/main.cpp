@@ -52,9 +52,9 @@ void randomAssignment(Coordinate c[], int size){
     }
     
 }
-void sortcod(Coordinate c[], int size){
-    sort(c,10);
-}
+// void sortcod(Coordinate c[], int size){
+//     sort(c,10);
+// }
 
 void highest(Coordinate c[],int n ){
     c[n-1].display();
@@ -67,9 +67,9 @@ void lowest(Coordinate c[],int n ){
 int main(){
     Coordinate coord[10];
     randomAssignment(coord,10);
-    sortcod(coord, )
-    highest(coord,10);
-    lowest(coord,10);
+    //sortcod(coord, )
+    //highest(coord,10);
+    //lowest(coord,10);
 }
 
 
