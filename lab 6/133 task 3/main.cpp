@@ -6,7 +6,7 @@
 
 int main() {
     
-    kelvin k;
+    kelvin k,k2;
     celsius c;
     fahrenheit f;
 
@@ -22,7 +22,8 @@ int main() {
 
     k=f;
     k.display();
-    
+    k2=k;
+    k2.display();
     
     return 0;
 }

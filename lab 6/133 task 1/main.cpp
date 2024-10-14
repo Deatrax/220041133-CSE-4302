@@ -37,7 +37,7 @@ int main() {
     if(c1>c2) cout<<"c1 is greater\n";
     else cout<<"c2 is greater\n";
 
-    if(c2==c3) cout<<"c1 and c2 are the same\n";
+    if(c2==c3) cout<<"c2 and c3 are the same\n";
     else cout<<"they are not the same\n";
     
     return 0;
