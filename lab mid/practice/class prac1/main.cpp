@@ -1,4 +1,3 @@
-#include "dummyClass.h"
 #include <iostream>
 #include <cmath>
 #include <map>
