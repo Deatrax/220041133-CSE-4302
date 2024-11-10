@@ -13,10 +13,12 @@ int main() {
     string name;
     string accnumber;
     float balance;
+    float rate;
+    int Mdiposit;
     acc1.getter(accnumber, name, balance);   
     cout<<"for the savings accout\naccount number="<<accnumber<<"\naccount holder="<<name<<"\naccount balance="<<balance<<nl;
 
-    acc2.getter(accnumber, name, balance);   
+    acc2.getvals(accnumber, name, balance, rate, Mdiposit);
     cout<<"for the savings accout\naccount number="<<accnumber<<"\naccount holder="<<name<<"\naccount balance="<<balance<<nl;
   
 
