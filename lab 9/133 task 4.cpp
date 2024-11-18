@@ -30,6 +30,10 @@ class Artwork{
             ,price(p)
         {}
 
+        virtual ~Artwork(){
+            cout<<"Base artwork destructor\n";
+        }
+
         virtual void displayDetails(){
             cout<<"Name of Artwork="<<title<<"\nName of the artist="<<artist<<"\nPrice\t="<<price;
             if(discount){
@@ -54,6 +58,10 @@ class Painting: public Artwork{
     public:
         Painting(string t, string a, float p, string trd): Artwork(t,a,p), medium(trd){}
 
+        ~Painting(){
+            cout<<"Painting artwork destructor\n";
+        }
+
         void displayDetails() override{
             cout<<"The kind of artwork= Painting\n";
             Artwork::displayDetails();
@@ -68,6 +76,10 @@ class Sculpture: public Artwork{
 
     public:
         Sculpture(string t, string a, float p, string trd): Artwork(t,a,p), material(trd){}
+
+        ~Sculpture(){
+            cout<<"Sculpture artwork destructor\n";
+        }
 
         void displayDetails() override{
             cout<<"The kind of artwork= Sculpture\n";
@@ -89,6 +101,10 @@ class DigitalArt: public Artwork{
 
     public:
         DigitalArt(string t, string a, float p, string trd): Artwork(t,a,p), resolution(trd){}
+
+        ~DigitalArt(){
+            cout<<"DigitalArt artwork destructor\n";
+        }
 
         void displayDetails() override{
             cout<<"The kind of artwork= DigitalArt\n";
@@ -121,6 +137,13 @@ int main(){
     }
     
 
+
     DisplayGalleryDetials(arts,3);
+
+    for (int i = 0; i < 3; i++)
+    {
+        delete arts[i];
+    }
+    
     
 }
