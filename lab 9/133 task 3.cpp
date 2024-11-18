@@ -32,6 +32,13 @@ class Artwork{
 
         virtual void displayDetails(){
             cout<<"Name of Artwork="<<title<<"\nName of the artist="<<artist<<"\nPrice\t="<<price;
+            if(discount){
+                float np=( price - ( price * (discount / 100 ) ) );
+                cout<<"\nDiscount ="<<discount<<"%\nPrice after discount ="<<np;
+            }
+            else{
+                cout<<"\nDiscount = Discount is not applicable";
+            }
         }
         virtual void applyDiscount(float i){
             discount=i;
@@ -48,10 +55,9 @@ class Painting: public Artwork{
         Painting(string t, string a, float p, string trd): Artwork(t,a,p), medium(trd){}
 
         void displayDetails() override{
-            float np=( price - ( price * (discount / 100 ) ) );
             cout<<"The kind of artwork= Painting\n";
             Artwork::displayDetails();
-            cout<<"\nDiscount ="<<discount<<"%\nPrice after discount ="<<np<<"\nMedium ="<<medium<<nl<<endl;
+            cout<<"\nMedium ="<<medium<<nl<<endl;
         }
 };
 
@@ -64,10 +70,9 @@ class Sculpture: public Artwork{
         Sculpture(string t, string a, float p, string trd): Artwork(t,a,p), material(trd){}
 
         void displayDetails() override{
-            float np=( price - ( price * (discount / 100 ) ) );
             cout<<"The kind of artwork= Sculpture\n";
             Artwork::displayDetails();
-            cout<<"\nDiscount = Cannot apply discount to Sculpture"<<"\nMeterial ="<<material<<nl<<endl;
+            cout<<"\nMeterial ="<<material<<nl<<endl;
         }
 
         void applyDiscount(float i) override{
@@ -86,10 +91,9 @@ class DigitalArt: public Artwork{
         DigitalArt(string t, string a, float p, string trd): Artwork(t,a,p), resolution(trd){}
 
         void displayDetails() override{
-            float np=( price - ( price * (discount / 100 ) ) );
             cout<<"The kind of artwork= DigitalArt\n";
             Artwork::displayDetails();
-            cout<<"\nDiscount ="<<discount<<"%\nPrice after discount ="<<np<<"\resolution ="<<resolution<<nl<<endl;
+            cout<<"\resolution ="<<resolution<<nl<<endl;
         }
 };
 
