@@ -1,0 +1,3 @@
+CS101,intro
+CS102,structuredProgramming
+CS119,programming Ethics

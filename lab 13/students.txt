@@ -1,0 +1,3 @@
+Sadman Shaharier Mahim,220041133,,intro
+Saibul Jessan ,220041145,,intro,structuredProgramming
+Mahim,220041135,,intro,programming Ethics,structuredProgramming
